@@ -1,6 +1,8 @@
 package com.example.mdm
 
 import android.content.Intent
+import androidx.compose.ui.platform.LocalContext
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,75 +11,42 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
-class MainActivity : ComponentActivity() {
+class DeviceListActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        android.util.Log.d("MDM_Lifecycle", "onCreate")
-
         setContent {
             MaterialTheme {
-                MdmClientScreen()
+                DeviceListScreen()
             }
         }
     }
-
-    override fun onStart(){
-        super.onStart()
-        android.util.Log.d("MDM_Lifecycle", "onStart")
-    }
-
-    override fun onResume(){
-        super.onResume()
-        android.util.Log.d("MDM_Lifecycle", "onResume")
-    }
-
-    override fun onPause(){
-        super.onPause()
-        android.util.Log.d("MDM_Lifecycle", "onPause")
-    }
-
-    override fun onStop(){
-        super.onStop()
-        android.util.Log.d("MDM_Lifecycle", "onStop")
-    }
-
-    override fun onDestroy(){
-        super.onDestroy()
-        android.util.Log.d("MDM_Lifecycle", "onDestroy")
-    }
 }
-@Composable
-fun MdmClientScreen() {
-    val context = LocalContext.current
 
+@Composable
+fun DeviceListScreen() {
+    val context = LocalContext.current
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
-    ) {
+    ){
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(32.dp),
+            modifier = Modifier.fillMaxSize().padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
-        ) {
+        ){
             Text(
-                text = "MDM Client",
-                fontSize = 32.sp,
+                text = "Device List",
+                fontSize = 28.sp,
                 fontWeight = FontWeight.Bold
             )
-
             Spacer(modifier = Modifier.height(16.dp))
-
             Text(
-                text = "Mobile Device Management",
+                text = "No devices registered yet",
                 fontSize = 16.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -86,11 +55,12 @@ fun MdmClientScreen() {
 
             Button(
                 onClick = {
-                    context.startActivity(Intent(context, DeviceListActivity::class.java))
+                    context.startActivity(Intent(context, MainActivity::class.java))
                 }
             ){
-                Text("View Devices")
+                Text(text = "Back")
             }
         }
     }
+
 }
